@@ -14,7 +14,7 @@ All completed assignment documents and real visual assets are tracked directly i
 - [`claude_project.png`](assets/claude_project.png) — Real workspace setup capture.
 - [`fly_1.png`](assets/fly_1.png), [`fly_2.png`](assets/fly_2.png), [`fly_3.png`](assets/fly_3.png) — Real conversation captures documenting sitemapping, domain catch criteria, and three-beat case study structure.
 
-### 📑 General AI Fluency Deliverables (`work/deliverables/`)
+- [`The_Through_Line_Content_Map_Muhammad_Arsalan.md`](deliverables/The_Through_Line_Content_Map_Muhammad_Arsalan.md) — **Week 3:** One-line claim (10 options), content map, and de-risking gather list.
 - [`Curate_Your_Images_Muhammad_Arsalan.md`](deliverables/Curate_Your_Images_Muhammad_Arsalan.md) — **Week 3:** Image curation, real captures proof, and AI slop rejection audit.
 - [`Decide_Once_Identity_Kit_Muhammad_Arsalan.md`](deliverables/Decide_Once_Identity_Kit_Muhammad_Arsalan.md) — **Week 3:** 4-color palette, typography pairings, and reusable style notes.
 - [`Map_It_And_Give_It_A_Face_Muhammad_Arsalan.md`](deliverables/Map_It_And_Give_It_A_Face_Muhammad_Arsalan.md) — **Week 3:** One-line claim, content map, and CTA hierarchy.
