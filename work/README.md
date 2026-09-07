@@ -14,6 +14,7 @@ All completed assignment documents and real visual assets are tracked directly i
 - [`claude_project.png`](assets/claude_project.png) — Real workspace setup capture.
 - [`fly_1.png`](assets/fly_1.png), [`fly_2.png`](assets/fly_2.png), [`fly_3.png`](assets/fly_3.png) — Real conversation captures documenting sitemapping, domain catch criteria, and three-beat case study structure.
 
+- [`Three_Roads_Stack_Rationale_Muhammad_Arsalan.md`](deliverables/Three_Roads_Stack_Rationale_Muhammad_Arsalan.md) — **Week 4:** Three Roads stack evaluation & technical rationale.
 - [`Empty_But_Live_Muhammad_Arsalan.md`](deliverables/Empty_But_Live_Muhammad_Arsalan.md) — **Week 4:** Three Roads stack rationale & live URL milestone.
 - [`The_Through_Line_Content_Map_Muhammad_Arsalan.md`](deliverables/The_Through_Line_Content_Map_Muhammad_Arsalan.md) — **Week 3:** One-line claim (10 options), content map, and de-risking gather list.
 - [`Curate_Your_Images_Muhammad_Arsalan.md`](deliverables/Curate_Your_Images_Muhammad_Arsalan.md) — **Week 3:** Image curation, real captures proof, and AI slop rejection audit.
