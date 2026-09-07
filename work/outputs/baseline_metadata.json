@@ -1,0 +1,15 @@
+{
+  "total_rows": 30000,
+  "top_baseline_score": 0.9528887755105742,
+  "baseline_precision_at_50": 0.36,
+  "dataset_base_rate": 0.5420666666666667,
+  "signals_used": [
+    "impressions_90d",
+    "days_since_last_update",
+    "avg_position"
+  ],
+  "verdicts": {
+    "staleness": "CONFIRMED",
+    "position_tier": "CONFIRMED"
+  }
+}
