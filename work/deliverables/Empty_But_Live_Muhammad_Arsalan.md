@@ -3,7 +3,8 @@
 **Track:** General AI Fluency (Build Phase) — Week 4  
 **Assignment:** Three Roads: Choose Your Stack with AI & Empty but Live  
 **Role:** Applied AI & ML Engineer  
-**Live URL:** [https://24pwai0015-max.github.io/flyrank-ml-muhammad-arsalan/](https://24pwai0015-max.github.io/flyrank-ml-muhammad-arsalan/)  
+**Live Public URL:** [https://arslanflyrankweb.netlify.app/](https://arslanflyrankweb.netlify.app/)  
+**GitHub Mirror URL:** [https://24pwai0015-max.github.io/flyrank-ml-muhammad-arsalan/](https://24pwai0015-max.github.io/flyrank-ml-muhammad-arsalan/)  
 
 ---
 
