@@ -14,6 +14,8 @@ All completed assignment documents and real visual assets are tracked directly i
 - [`claude_project.png`](assets/claude_project.png) — Real workspace setup capture.
 - [`fly_1.png`](assets/fly_1.png), [`fly_2.png`](assets/fly_2.png), [`fly_3.png`](assets/fly_3.png) — Real conversation captures documenting sitemapping, domain catch criteria, and three-beat case study structure.
 
+- [`FL06_Personal_Agent_Design_Spec_Muhammad_Arsalan.pdf`](deliverables/FL06_Personal_Agent_Design_Spec_Muhammad_Arsalan.pdf) — **FL-06 (PDF):** Personal AI Agent Design Spec (Publication-grade 2-page design doc).
+- [`FL06_Personal_Agent_Design_Spec_Muhammad_Arsalan.md`](deliverables/FL06_Personal_Agent_Design_Spec_Muhammad_Arsalan.md) — **FL-06 (Markdown):** Personal AI Agent Design Spec (ResearchScout-AI, FastMCP, 5 evals, guardrails).
 - [`Explain_It_Like_You_Built_It_Muhammad_Arsalan.md`](deliverables/Explain_It_Like_You_Built_It_Muhammad_Arsalan.md) — **Week 5 / 6:** Explain It Like You Built It (Continuous deployment pipeline & edge delivery).
 - [`FL04_Building_Agents_and_MCP_Muhammad_Arsalan.md`](deliverables/FL04_Building_Agents_and_MCP_Muhammad_Arsalan.md) — **FL-04:** Workflows vs Agents, MCP architectural primitives, and local filesystem tools.
 - [`FL03_NoCode_Workflow_Muhammad_Arsalan.md`](deliverables/FL03_NoCode_Workflow_Muhammad_Arsalan.md) — **FL-03:** Multi-step no-code AI workflow, failure modes, and time-saved benchmarking.
