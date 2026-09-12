@@ -14,6 +14,9 @@ All completed assignment documents and real visual assets are tracked directly i
 - [`claude_project.png`](assets/claude_project.png) — Real workspace setup capture.
 - [`fly_1.png`](assets/fly_1.png), [`fly_2.png`](assets/fly_2.png), [`fly_3.png`](assets/fly_3.png) — Real conversation captures documenting sitemapping, domain catch criteria, and three-beat case study structure.
 
+- [`FL07_Build_The_Agent_Muhammad_Arsalan.pdf`](deliverables/FL07_Build_The_Agent_Muhammad_Arsalan.pdf) — **FL-07 (PDF):** Build the Personal Agent (Working MVP, live tool calls, build log, execution trace).
+- [`FL07_Agent_Build_Log_Muhammad_Arsalan.md`](deliverables/FL07_Agent_Build_Log_Muhammad_Arsalan.md) — **FL-07 (Markdown):** Build log (what broke, what changed, spec deviations, and live run capture).
+- [`research_scout.py`](agent/research_scout.py) — **FL-07 Agent Engine:** Working Python agent with live ArXiv API, GitHub search, and vault collision guard.
 - [`FL06_Personal_Agent_Design_Spec_Muhammad_Arsalan.pdf`](deliverables/FL06_Personal_Agent_Design_Spec_Muhammad_Arsalan.pdf) — **FL-06 (PDF):** Personal AI Agent Design Spec (Publication-grade 2-page design doc).
 - [`FL06_Personal_Agent_Design_Spec_Muhammad_Arsalan.md`](deliverables/FL06_Personal_Agent_Design_Spec_Muhammad_Arsalan.md) — **FL-06 (Markdown):** Personal AI Agent Design Spec (ResearchScout-AI, FastMCP, 5 evals, guardrails).
 - [`Explain_It_Like_You_Built_It_Muhammad_Arsalan.md`](deliverables/Explain_It_Like_You_Built_It_Muhammad_Arsalan.md) — **Week 5 / 6:** Explain It Like You Built It (Continuous deployment pipeline & edge delivery).
