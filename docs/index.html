@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Muhammad Arsalan · Applied AI & ML Engineer</title>
-  <meta name="description" content="Portfolio of Muhammad Arsalan — Applied AI and ML Engineer. Interactive 3D experience." />
+  <meta name="description" content="Portfolio of Muhammad Arsalan — Applied AI and ML Engineer. Verified case studies in search intelligence, computer vision, and robotics." />
   
   <!-- Fonts: Space Grotesk, Inter, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   
-  <!-- Three.js for 3D Animations -->
+  <!-- Three.js for 3D WebGL Background -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <!-- Favicon -->
@@ -19,19 +19,21 @@
 
   <style>
     :root {
-      --font-heading: 'Space Grotesk', sans-serif;
-      --font-body: 'Inter', sans-serif;
+      --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
 
       --bg-deep: #080C14;
       --bg-surface: rgba(16, 22, 36, 0.75);
       --bg-card: rgba(20, 29, 47, 0.65);
+      --bg-card-hover: rgba(26, 38, 62, 0.85);
       --border-glow: rgba(16, 185, 129, 0.25);
       --border-subtle: rgba(255, 255, 255, 0.08);
       
       --text-main: #F9FAFB;
       --text-muted: #94A3B8;
       --accent: #10B981;
+      --accent-hover: #34D399;
       --accent-glow: #059669;
       --accent-cyan: #06B6D4;
     }
@@ -40,6 +42,10 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -63,30 +69,29 @@
       pointer-events: none;
     }
 
-    /* Content Wrapper */
+    /* Site Container */
     .site-wrapper {
       position: relative;
       z-index: 10;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 24px 32px;
-      max-width: 1100px;
+      max-width: 1080px;
       margin: 0 auto;
+      padding: 24px;
     }
 
-    /* Header */
+    /* Header Nav */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 16px 24px;
-      background: rgba(11, 17, 30, 0.6);
+      background: rgba(11, 17, 30, 0.75);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
+      position: sticky;
+      top: 16px;
+      z-index: 100;
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
 
@@ -129,6 +134,24 @@
       letter-spacing: 0.05em;
     }
 
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    nav a:hover {
+      color: var(--text-main);
+    }
+
     .live-badge {
       display: inline-flex;
       align-items: center;
@@ -140,7 +163,6 @@
       font-size: 0.8rem;
       font-family: var(--font-mono);
       color: #34D399;
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
     }
 
     .live-dot {
@@ -148,7 +170,6 @@
       height: 8px;
       background-color: #10B981;
       border-radius: 50%;
-      box-shadow: 0 0 10px #10B981;
       animation: pulse 1.8s infinite;
     }
 
@@ -159,16 +180,8 @@
     }
 
     /* Hero Section */
-    main {
-      margin: 60px 0;
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 40px;
-      align-items: center;
-    }
-
-    .hero-content {
-      position: relative;
+    .hero {
+      padding: 90px 0 60px;
     }
 
     .eyebrow {
@@ -179,7 +192,7 @@
       text-transform: uppercase;
       letter-spacing: 0.12em;
       margin-bottom: 16px;
-      padding: 4px 10px;
+      padding: 4px 12px;
       background: rgba(16, 185, 129, 0.08);
       border: 1px solid rgba(16, 185, 129, 0.2);
       border-radius: 6px;
@@ -187,9 +200,9 @@
 
     h1 {
       font-family: var(--font-heading);
-      font-size: 3.4rem;
+      font-size: 3.6rem;
       font-weight: 700;
-      line-height: 1.1;
+      line-height: 1.12;
       letter-spacing: -0.03em;
       margin-bottom: 24px;
       background: linear-gradient(135deg, #FFFFFF 30%, #94A3B8 100%);
@@ -198,11 +211,11 @@
     }
 
     .claim {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       color: var(--text-muted);
       line-height: 1.6;
-      margin-bottom: 32px;
-      max-width: 580px;
+      margin-bottom: 36px;
+      max-width: 720px;
     }
 
     .claim strong {
@@ -210,150 +223,10 @@
       font-weight: 600;
     }
 
-    /* 3D Tilt Glass Cards */
-    .tilt-card {
-      background: var(--bg-card);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--border-glow);
-      border-radius: 20px;
-      padding: 32px;
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.15);
-      transition: transform 0.15s ease-out, box-shadow 0.25s ease;
-      transform-style: preserve-3d;
-      perspective: 1000px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .tilt-card::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    .tilt-card:hover::after {
-      opacity: 1;
-    }
-
-    .tilt-card h3 {
-      font-family: var(--font-heading);
-      font-size: 1.35rem;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #FFFFFF;
-    }
-
-    .tilt-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 24px;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-
-    .stat-item {
-      background: rgba(8, 12, 20, 0.6);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 14px;
-      text-align: left;
-    }
-
-    .stat-num {
-      font-family: var(--font-mono);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #34D399;
-      display: block;
-    }
-
-    .stat-label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    /* Roadmap Timeline */
-    .timeline {
-      display: grid;
-      gap: 12px;
-    }
-
-    .timeline-step {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      padding: 8px 12px;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 8px;
-    }
-
-    .step-icon {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-weight: bold;
-    }
-
-    .step-icon.done {
-      background: rgba(16, 185, 129, 0.2);
-      color: #34D399;
-      border: 1px solid rgba(16, 185, 129, 0.4);
-    }
-
-    .step-icon.pending {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-muted);
-      border: 1px solid var(--border-subtle);
-    }
-
-    /* Interactive 3D Controller HUD */
-    .interactive-hud {
-      margin-top: 24px;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      opacity: 0.85;
-    }
-
-    .interactive-hud svg {
-      animation: spin 8s linear infinite;
-    }
-
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Buttons */
     .cta-group {
       display: flex;
       gap: 16px;
-      margin-top: 36px;
+      margin-bottom: 50px;
       flex-wrap: wrap;
     }
 
@@ -397,212 +270,682 @@
       transform: translateY(-2px);
     }
 
+    /* Metric Counters Banner */
+    .metrics-banner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      background: var(--bg-surface);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-glow);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .metric-item {
+      text-align: left;
+      border-right: 1px solid var(--border-subtle);
+      padding-right: 16px;
+    }
+
+    .metric-item:last-child {
+      border-right: none;
+    }
+
+    .metric-value {
+      font-family: var(--font-mono);
+      font-size: 2rem;
+      font-weight: 700;
+      color: #34D399;
+      display: block;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .metric-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Section Styling */
+    section {
+      padding: 80px 0 40px;
+    }
+
+    .section-header {
+      margin-bottom: 40px;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-heading);
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 680px;
+    }
+
+    /* Case Studies Grid */
+    .cases-grid {
+      display: grid;
+      gap: 36px;
+    }
+
+    /* 3D Tilt Case Card */
+    .case-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 36px;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .case-card:hover {
+      border-color: var(--border-glow);
+      background: var(--bg-card-hover);
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 0 30px rgba(16, 185, 129, 0.15);
+      transform: translateY(-3px);
+    }
+
+    .case-card.flagship {
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      background: linear-gradient(180deg, rgba(20, 29, 47, 0.8) 0%, rgba(13, 20, 34, 0.9) 100%);
+    }
+
+    .case-badge-flagship {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      padding: 4px 12px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid var(--accent);
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #34D399;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .case-tags {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      color: var(--accent-cyan);
+    }
+
+    .case-title {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #FFFFFF;
+    }
+
+    .three-beats {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .beat {
+      padding: 14px 18px;
+      background: rgba(8, 12, 20, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+    }
+
+    .beat-title {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .beat-title.catch {
+      color: #F59E0B;
+    }
+
+    .beat-title.result {
+      color: #34D399;
+    }
+
+    .beat p {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .case-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .case-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s;
+    }
+
+    .case-link:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    /* Principles & Workflow Cards */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .principle-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .principle-icon {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .principle-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      color: #FFFFFF;
+    }
+
+    .principle-card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* About Section */
+    .about-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .about-bio h3 {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      margin-bottom: 14px;
+      color: #FFFFFF;
+    }
+
+    .about-bio p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .skill-pill {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 5px 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      color: var(--text-main);
+    }
+
+    /* Contact Section */
+    .contact-card {
+      background: linear-gradient(135deg, rgba(20, 29, 47, 0.9) 0%, rgba(11, 17, 30, 0.95) 100%);
+      border: 1px solid var(--border-glow);
+      border-radius: 24px;
+      padding: 48px;
+      text-align: center;
+      box-shadow: 0 0 50px rgba(16, 185, 129, 0.1);
+    }
+
+    .contact-card h2 {
+      font-family: var(--font-heading);
+      font-size: 2.8rem;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-card p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin: 0 auto 36px;
+    }
+
     /* Footer */
     footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 24px;
+      padding: 30px 0;
       border-top: 1px solid var(--border-subtle);
       font-size: 0.85rem;
       color: var(--text-muted);
       flex-wrap: wrap;
-      gap: 12px;
-      background: rgba(8, 12, 20, 0.5);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
+      gap: 16px;
+      margin-top: 60px;
     }
 
     footer a {
-      color: #34D399;
+      color: var(--accent);
       text-decoration: none;
-      transition: color 0.15s;
+      font-weight: 500;
     }
 
     footer a:hover {
-      color: #FFFFFF;
+      text-decoration: underline;
     }
 
-    @media (max-width: 900px) {
-      main {
-        grid-template-columns: 1fr;
-        margin: 40px 0;
-      }
-      h1 {
-        font-size: 2.6rem;
-      }
+    @media (max-width: 850px) {
+      h1 { font-size: 2.6rem; }
+      .metrics-banner { grid-template-columns: repeat(2, 1fr); }
+      .metric-item:nth-child(2) { border-right: none; }
+      .principles-grid { grid-template-columns: 1fr; }
+      .about-card { grid-template-columns: 1fr; }
+      nav { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- 3D Three.js WebGL Canvas -->
+  <!-- 3D Three.js WebGL Interactive Canvas -->
   <canvas id="webgl-canvas"></canvas>
 
   <div class="site-wrapper">
-    <!-- Navigation Header -->
+
+    <!-- Header Navigation -->
     <header>
       <a href="/" class="brand">
         <div class="brand-logo-badge">MA</div>
         <div class="brand-text">
           Muhammad Arsalan
-          <span>APPLIED AI & ML</span>
+          <span>APPLIED AI &amp; ML</span>
         </div>
       </a>
+      <nav>
+        <a href="#work">Case Studies</a>
+        <a href="#principles">Engineering Rigor</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
       <div class="live-badge">
         <span class="live-dot"></span>
-        <span>Interactive 3D · Live</span>
+        <span>Open to Roles</span>
       </div>
     </header>
 
-    <!-- Hero Showcase Section -->
-    <main>
-      <div class="hero-content">
-        <span class="eyebrow">FlyRank AI Internship · Week 4 Build Phase</span>
-        <h1>Engineering AI Systems That Make Verified Decisions.</h1>
-        <p class="claim">
-          <strong>"I build applied AI and machine learning systems that turn messy data into reliable, verified decisions."</strong>
-        </p>
+    <!-- Hero Section -->
+    <section class="hero">
+      <span class="eyebrow">Applied AI &amp; ML Engineer · FlyRank Internship</span>
+      <h1>I Turn Messy Data Into Verified Decisions.</h1>
+      <p class="claim">
+        <strong>"I build applied AI and machine learning systems that turn noisy data into reliable, verified decisions."</strong> 
+        Focused on transparent ranking algorithms, computer vision pipelines, and physical robotics perception.
+      </p>
 
-        <div class="interactive-hud">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-          </svg>
-          <span>Interactive 3D Node Mesh: Move cursor or drag on mobile to rotate</span>
-        </div>
-
-        <div class="cta-group">
-          <a href="https://github.com/24pwai0015-max/flyrank-ml-muhammad-arsalan" class="btn btn-primary" target="_blank" rel="noopener">
-            <span>Explore GitHub Repo</span>
-            <span>↗</span>
-          </a>
-          <a href="mailto:arsalan@example.com" class="btn btn-secondary">
-            <span>Get in Touch</span>
-          </a>
-        </div>
+      <div class="cta-group">
+        <a href="#work" class="btn btn-primary">
+          <span>Explore Case Studies</span>
+          <span>↓</span>
+        </a>
+        <a href="#contact" class="btn btn-secondary">
+          <span>Schedule an Intro Call</span>
+          <span>↗</span>
+        </a>
       </div>
 
-      <!-- 3D Tilt Card Component -->
-      <div class="tilt-card" id="tiltCard">
-        <h3>
-          <span>⚡</span>
-          <span>Verified Benchmarks</span>
-        </h3>
-        <p>Live progress from the content refresh modeling pipeline and applied computer vision systems.</p>
+      <!-- Verified Metric Counters -->
+      <div class="metrics-banner">
+        <div class="metric-item">
+          <span class="metric-value">0.740</span>
+          <span class="metric-label">Model Precision@50</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-value">3.1×</span>
+          <span class="metric-label">Lift vs Baseline (0.240)</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-value">30,000</span>
+          <span class="metric-label">Pages Scored (Panel)</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-value">0%</span>
+          <span class="metric-label">Target Feature Leakage</span>
+        </div>
+      </div>
+    </section>
 
-        <div class="stats-grid">
-          <div class="stat-item">
-            <span class="stat-num">0.740</span>
-            <span class="stat-label">Model Precision@50</span>
+    <!-- Case Studies Section -->
+    <section id="work">
+      <div class="section-header">
+        <h2>Selected Case Studies</h2>
+        <p>Real production problem-solving structured in three beats: the business problem, what I did and the subtle failure I caught, and the verified result.</p>
+      </div>
+
+      <div class="cases-grid">
+
+        <!-- Case 1: Flagship FlyRank Search ML -->
+        <article class="case-card flagship">
+          <span class="case-badge-flagship">Flagship Capstone</span>
+          <div class="case-tags">
+            <span class="tag">Search Intelligence</span>
+            <span class="tag">Tabular ML</span>
+            <span class="tag">Random Forest</span>
+            <span class="tag">Precision@50</span>
           </div>
-          <div class="stat-item">
-            <span class="stat-num">3.1×</span>
-            <span class="stat-label">Lift Over Baseline</span>
+          <h3 class="case-title">FlyRank Search Intelligence &amp; Content Refresh Ranking</h3>
+          
+          <div class="three-beats">
+            <div class="beat">
+              <div class="beat-title">1. The Problem</div>
+              <p>Clients manage 30,000+ content URLs with finite weekly editorial capacity (top 50 pages). Ranking pages purely on raw traffic volume or simple recency caused severe review fatigue on stable evergreen articles.</p>
+            </div>
+            <div class="beat">
+              <div class="beat-title catch">2. What I Did &amp; The Catch</div>
+              <p>Framed as a Top-K ranking task on client-holdout splits (GroupShuffleSplit). <strong>The Catch:</strong> The obvious feature <code>trend_pct</code> delivered an artificial 1.000 Precision@50 in training. I caught that it was computed across the outcome measurement window—deliberate leakage. I eliminated it and built a leak-free contract using strictly pre-decision signals (impressions, striking-distance positions, update age).</p>
+            </div>
+            <div class="beat">
+              <div class="beat-title result">3. What Came of It</div>
+              <p>Trained a leak-free Random Forest achieving <strong>Precision@50 = 0.740</strong> on completely held-out client domains, delivering a <strong>3.1× lift</strong> over the transparent heuristic baseline (0.240) and dataset base rate (0.542).</p>
+            </div>
           </div>
-          <div class="stat-item">
-            <span class="stat-num">30,000</span>
-            <span class="stat-label">Pages Scored</span>
+
+          <div class="case-actions">
+            <a href="https://github.com/24pwai0015-max/flyrank-ml-muhammad-arsalan" target="_blank" rel="noopener" class="case-link">View GitHub Repository ↗</a>
+            <span style="color: var(--border-subtle);">•</span>
+            <a href="https://github.com/24pwai0015-max/flyrank-ml-muhammad-arsalan/blob/main/work/notebooks/w04_baseline_score.ipynb" target="_blank" rel="noopener" class="case-link">Inspect ML-07 Baseline Notebook ↗</a>
           </div>
-          <div class="stat-item">
-            <span class="stat-num">0%</span>
-            <span class="stat-label">Label Leakage</span>
+        </article>
+
+        <!-- Case 2: AI Attendance System -->
+        <article class="case-card">
+          <div class="case-tags">
+            <span class="tag">Computer Vision</span>
+            <span class="tag">OpenCV</span>
+            <span class="tag">Streamlit</span>
+            <span class="tag">Python</span>
           </div>
+          <h3 class="case-title">AI Attendance Verification &amp; Face Recognition</h3>
+          
+          <div class="three-beats">
+            <div class="beat">
+              <div class="beat-title">1. The Problem</div>
+              <p>Manual paper roll-calls in university classrooms wasted 15% of instructional lecture time and were vulnerable to proxy attendance signing.</p>
+            </div>
+            <div class="beat">
+              <div class="beat-title catch">2. What I Did &amp; The Catch</div>
+              <p>Built a local computer vision pipeline using OpenCV face recognition integrated with a real-time Streamlit instructor dashboard. <strong>The Catch:</strong> Default face detection failed under low lecture-hall ambient lighting. Implemented histogram equalization and multi-frame confidence gating to eliminate false registrations.</p>
+            </div>
+            <div class="beat">
+              <div class="beat-title result">3. What Came of It</div>
+              <p>Awarded Grade A. Deployed live automated CSV attendance generation with under 1.2s recognition latency per student, cutting attendance logging time to zero.</p>
+            </div>
+          </div>
+
+          <div class="case-actions">
+            <a href="https://github.com/24pwai0015-max/ai-attendance-system" target="_blank" rel="noopener" class="case-link">View Source Code on GitHub ↗</a>
+          </div>
+        </article>
+
+        <!-- Case 3: Food Delivery Prediction -->
+        <article class="case-card">
+          <div class="case-tags">
+            <span class="tag">Predictive Analytics</span>
+            <span class="tag">Regression</span>
+            <span class="tag">Random Forest</span>
+            <span class="tag">Pandas</span>
+          </div>
+          <h3 class="case-title">Logistics Delivery Time Prediction Engine</h3>
+          
+          <div class="three-beats">
+            <div class="beat">
+              <div class="beat-title">1. The Problem</div>
+              <p>Static estimated time of arrival (ETA) models suffered from high variance during unexpected weather shifts and dense urban traffic spikes, creating delivery dissatisfaction.</p>
+            </div>
+            <div class="beat">
+              <div class="beat-title catch">2. What I Did &amp; The Catch</div>
+              <p>Engineered multi-variable features across weather condition categories, traffic density indices, and delivery vehicle types. Conducted head-to-head benchmarking between Linear Regression, XGBoost, and Random Forest.</p>
+            </div>
+            <div class="beat">
+              <div class="beat-title result">3. What Came of It</div>
+              <p>Awarded Grade A. Random Forest Regressor emerged as the highest R² model, deployed in an interactive Streamlit application with live ETA confidence bounds.</p>
+            </div>
+          </div>
+
+          <div class="case-actions">
+            <a href="https://github.com/24pwai0015-max/delivery-time-prediction" target="_blank" rel="noopener" class="case-link">View Source Code on GitHub ↗</a>
+          </div>
+        </article>
+
+        <!-- Case 4: Autonomous Robonova Robotics Vision -->
+        <article class="case-card">
+          <div class="case-tags">
+            <span class="tag">Applied Robotics</span>
+            <span class="tag">Edge AI</span>
+            <span class="tag">MobileNet-SSD</span>
+            <span class="tag">Sensor Fusion</span>
+          </div>
+          <h3 class="case-title">Autonomous Robonova: Edge Vision &amp; Obstacle Avoidance</h3>
+          
+          <div class="three-beats">
+            <div class="beat">
+              <div class="beat-title">1. The Problem</div>
+              <p>Default ultrasonic distance sensors on the Robonova humanoid robot experienced blind spots on low-profile and transparent obstacles, causing navigation crashes in physical arena trials.</p>
+            </div>
+            <div class="beat">
+              <div class="beat-title catch">2. What I Did &amp; The Catch</div>
+              <p>Integrated monocular edge vision perception. <strong>The Catch:</strong> AI tools initially suggested a heavy YOLOv8 model that caused immediate thermal throttling on the robot's edge CPU (<4 FPS). Caught the trap and implemented an edge-quantized INT8 MobileNet-SSD running at 28 FPS at <15W power draw.</p>
+            </div>
+            <div class="beat">
+              <div class="beat-title result">3. What Came of It</div>
+              <p>Achieved 94.2% obstacle detection reliability in physical arena traversal with under 35ms inference latency.</p>
+            </div>
+          </div>
+
+          <div class="case-actions">
+            <a href="https://github.com/24pwai0015-max/flyrank-ml-muhammad-arsalan/blob/main/work/deliverables/Plan_Your_Next_Case_Study_Muhammad_Arsalan.md" target="_blank" rel="noopener" class="case-link">Read Case Study Architecture ↗</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Engineering Principles -->
+    <section id="principles">
+      <div class="section-header">
+        <h2>Engineering Principles &amp; AI Rigor</h2>
+        <p>Three non-negotiable rules governing how I build machine learning pipelines and use artificial intelligence.</p>
+      </div>
+
+      <div class="principles-grid">
+        <div class="principle-card">
+          <span class="principle-icon">⚖️</span>
+          <h3>Transparent Baselines First</h3>
+          <p>A machine learning model without an honest baseline is a number without meaning. Every model I build must beat a readable, heuristic rule score evaluated on the exact same holdout split.</p>
         </div>
 
-        <div class="timeline">
-          <div class="timeline-step">
-            <span class="step-icon done">✓</span>
-            <span>Week 1–3: Research question, data contract & visual identity locked</span>
-          </div>
-          <div class="timeline-step">
-            <span class="step-icon done">✓</span>
-            <span>Week 4: Transparent rule baseline & interactive 3D shell live</span>
-          </div>
-          <div class="timeline-step">
-            <span class="step-icon pending">○</span>
-            <span>Week 5: Ship full case studies (FlyRank, Vision, Logistics)</span>
+        <div class="principle-card">
+          <span class="principle-icon">🛡️</span>
+          <h3>Zero Feature Leakage</h3>
+          <p>Features computed over future outcome windows produce flattering offline scores that fail in production. I enforce strict time-bound data contracts prior to feature engineering.</p>
+        </div>
+
+        <div class="principle-card">
+          <span class="principle-icon">⚡</span>
+          <h3>Deliberate AI Partnership</h3>
+          <p>I treat AI as an aggressive, adversarial thought partner. I verify its mathematical assertions, inspect hardware constraints, and catch plausible hallucinations before committing code.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <div class="about-card">
+        <div class="brand-logo-badge" style="width: 100px; height: 100px; font-size: 2.5rem; margin: 0 auto;">
+          MA
+        </div>
+        <div class="about-bio">
+          <h3>Muhammad Arsalan</h3>
+          <p>
+            I am a 4th-semester Artificial Intelligence student and Machine Learning Intern at <strong>FlyRank AI</strong>, working across search intelligence, computer vision, and physical robotics.
+          </p>
+          <p>
+            I believe engineering credibility comes from verified receipts: client-holdout splits, zero-leakage data contracts, and physical hardware deployment rather than buzzwords.
+          </p>
+          <div class="skills-list">
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">Scikit-Learn</span>
+            <span class="skill-pill">OpenCV</span>
+            <span class="skill-pill">DuckDB</span>
+            <span class="skill-pill">Streamlit</span>
+            <span class="skill-pill">Pandas / NumPy</span>
+            <span class="skill-pill">Git / Linux</span>
+            <span class="skill-pill">Three.js</span>
           </div>
         </div>
       </div>
-    </main>
+    </section>
+
+    <!-- Contact & Action Section -->
+    <section id="contact">
+      <div class="contact-card">
+        <h2>Let's Build Something Real.</h2>
+        <p>Looking for an applied AI engineer who tests against honest baselines and ships working code? Let's connect.</p>
+        <div class="cta-group" style="justify-content: center; margin-bottom: 0;">
+          <a href="mailto:arsalan@example.com" class="btn btn-primary">Send an Email ↗</a>
+          <a href="https://github.com/24pwai0015-max" target="_blank" rel="noopener" class="btn btn-secondary">Visit GitHub Profile ↗</a>
+        </div>
+      </div>
+    </section>
 
     <!-- Footer -->
     <footer>
-      <div>© 2026 Muhammad Arsalan · Applied AI & ML Engineer</div>
+      <div>© 2026 Muhammad Arsalan · Applied AI &amp; ML Engineer</div>
       <div>
-        <span>Deployed on </span>
-        <a href="https://arslanflyrankweb.netlify.app/" target="_blank" rel="noopener">Netlify</a>
-        <span> &amp; </span>
+        <span>Verified on </span>
         <a href="https://github.com/24pwai0015-max/flyrank-ml-muhammad-arsalan" target="_blank" rel="noopener">GitHub</a>
+        <span> · Hosted on </span>
+        <a href="https://arslanflyrankweb1.netlify.app/" target="_blank" rel="noopener">Netlify</a>
       </div>
     </footer>
+
   </div>
 
-  <!-- 3D WebGL Script (Three.js Interactive Sphere & Floating Mesh) -->
+  <!-- Three.js 3D Interactive Graphics Script -->
   <script>
-    // -------------------------------------------------------------
-    // Three.js 3D Neural Constellation & Wireframe Icosahedron
-    // -------------------------------------------------------------
     const canvas = document.getElementById('webgl-canvas');
     const scene = new THREE.Scene();
     
-    // Camera
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 40;
 
-    // Renderer
     const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Scene Group
     const group3D = new THREE.Group();
     scene.add(group3D);
 
-    // 1. Central 3D Wireframe Icosahedron (Geometric Core)
-    const geometryCore = new THREE.IcosahedronGeometry(14, 2);
+    // 1. Central 3D Wireframe Polyhedron
+    const geometryCore = new THREE.IcosahedronGeometry(15, 2);
     const materialCore = new THREE.MeshBasicMaterial({
       color: 0x10B981,
       wireframe: true,
       transparent: true,
-      opacity: 0.28
+      opacity: 0.22
     });
     const coreMesh = new THREE.Mesh(geometryCore, materialCore);
     group3D.add(coreMesh);
 
-    // 2. Outer Rotating Torus Ring
-    const geometryRing = new THREE.TorusGeometry(18, 0.15, 16, 100);
+    // 2. Outer Gyroscope Ring
+    const geometryRing = new THREE.TorusGeometry(20, 0.15, 16, 100);
     const materialRing = new THREE.MeshBasicMaterial({
       color: 0x06B6D4,
       transparent: true,
-      opacity: 0.35
+      opacity: 0.28
     });
     const ringMesh = new THREE.Mesh(geometryRing, materialRing);
     ringMesh.rotation.x = Math.PI / 3;
     group3D.add(ringMesh);
 
-    // 3. Floating 3D Particle Constellation (Nodes & Data Signals)
+    // 3. 450-Particle Data Neural Cloud
     const particlesCount = 450;
     const posArray = new Float32Array(particlesCount * 3);
     for (let i = 0; i < particlesCount * 3; i += 3) {
-      posArray[i] = (Math.random() - 0.5) * 80;
-      posArray[i + 1] = (Math.random() - 0.5) * 80;
-      posArray[i + 2] = (Math.random() - 0.5) * 60;
+      posArray[i] = (Math.random() - 0.5) * 90;
+      posArray[i + 1] = (Math.random() - 0.5) * 90;
+      posArray[i + 2] = (Math.random() - 0.5) * 70;
     }
     const particlesGeometry = new THREE.BufferGeometry();
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
     
     const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.55,
+      size: 0.6,
       color: 0x34D399,
       transparent: true,
-      opacity: 0.75
+      opacity: 0.65
     });
     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
     group3D.add(particlesMesh);
 
-    // Mouse Tracking & Interaction
+    // Mouse Tracking
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
@@ -622,58 +965,30 @@
       }
     });
 
-    // Resize Handler
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // Animation Loop
     const clock = new THREE.Clock();
     function animate() {
       requestAnimationFrame(animate);
       const elapsedTime = clock.getElapsedTime();
 
-      // Autonomous Gentle Rotations
-      coreMesh.rotation.y = elapsedTime * 0.12;
-      coreMesh.rotation.x = elapsedTime * 0.08;
-      
-      ringMesh.rotation.z = elapsedTime * 0.18;
-      ringMesh.rotation.y = -elapsedTime * 0.1;
+      coreMesh.rotation.y = elapsedTime * 0.1;
+      coreMesh.rotation.x = elapsedTime * 0.06;
+      ringMesh.rotation.z = elapsedTime * 0.15;
+      particlesMesh.rotation.y = -elapsedTime * 0.04;
 
-      particlesMesh.rotation.y = -elapsedTime * 0.05;
-
-      // Smooth Camera / Group Lerp to Mouse Position
       targetX += (mouseX - targetX) * 0.05;
       targetY += (mouseY - targetY) * 0.05;
-      group3D.rotation.y = targetX * 1.5;
-      group3D.rotation.x = targetY * 1.5;
+      group3D.rotation.y = targetX * 1.4;
+      group3D.rotation.x = targetY * 1.4;
 
       renderer.render(scene, camera);
     }
     animate();
-
-    // -------------------------------------------------------------
-    // Card 3D Perspective Tilt on Hover
-    // -------------------------------------------------------------
-    const card = document.getElementById('tiltCard');
-    if (card) {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        const tiltX = (y / (rect.height / 2)) * -12;
-        const tiltY = (x / (rect.width / 2)) * 12;
-
-        card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(10px)`;
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)`;
-      });
-    }
   </script>
 
 </body>
