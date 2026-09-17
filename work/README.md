@@ -14,6 +14,8 @@ All completed assignment documents and real visual assets are tracked directly i
 - [`claude_project.png`](assets/claude_project.png) — Real workspace setup capture.
 - [`fly_1.png`](assets/fly_1.png), [`fly_2.png`](assets/fly_2.png), [`fly_3.png`](assets/fly_3.png) — Real conversation captures documenting sitemapping, domain catch criteria, and three-beat case study structure.
 
+- [`ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf`](deliverables/ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf) — **ML Capstone (PDF):** Deployed research paper on search refresh opportunity scoring.
+- [`docs/paper.html`](../docs/paper.html) — **ML Capstone (Web):** Deployed research paper public web page.
 - [`FL07_Build_The_Agent_Muhammad_Arsalan.pdf`](deliverables/FL07_Build_The_Agent_Muhammad_Arsalan.pdf) — **FL-07 (PDF):** Build the Personal Agent (Working MVP, live tool calls, build log, execution trace).
 - [`FL07_Agent_Build_Log_Muhammad_Arsalan.md`](deliverables/FL07_Agent_Build_Log_Muhammad_Arsalan.md) — **FL-07 (Markdown):** Build log (what broke, what changed, spec deviations, and live run capture).
 - [`research_scout.py`](agent/research_scout.py) — **FL-07 Agent Engine:** Working Python agent with live ArXiv API, GitHub search, and vault collision guard.
@@ -48,4 +50,4 @@ All completed assignment documents and real visual assets are tracked directly i
 | `notebooks/w05_model.ipynb` | **ML-08** | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/24pwai0015-max/flyrank-ml-muhammad-arsalan/blob/main/work/notebooks/w05_model.ipynb?flush_cache=true) | **✅ Executed & Verified** |
 | `notebooks/w06_validation_audit.ipynb` | ML-09 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/24pwai0015-max/flyrank-ml-muhammad-arsalan/blob/main/work/notebooks/w06_validation_audit.ipynb?flush_cache=true) | 🔲 Upcoming |
 | `notebooks/w07_action_playbook.ipynb` | ML-10 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/24pwai0015-max/flyrank-ml-muhammad-arsalan/blob/main/work/notebooks/w07_action_playbook.ipynb?flush_cache=true) | 🔲 Upcoming |
-| `notebooks/capstone.ipynb` | ML-11 / ML-12 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/24pwai0015-max/flyrank-ml-muhammad-arsalan/blob/main/work/notebooks/capstone.ipynb?flush_cache=true) | 🔲 Upcoming |
+| `notebooks/capstone.ipynb` | **ML-CAP-01** | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/24pwai0015-max/flyrank-ml-muhammad-arsalan/blob/main/work/notebooks/capstone.ipynb?flush_cache=true) | **✅ Executed & Verified** |
