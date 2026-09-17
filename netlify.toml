@@ -1,0 +1,7 @@
+﻿[build]
+  publish = "docs"
+
+[[redirects]]
+  from = "/paper"
+  to = "/paper.html"
+  status = 200
