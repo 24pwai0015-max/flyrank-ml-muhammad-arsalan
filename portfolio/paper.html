@@ -50,6 +50,11 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+      width: 100%;
+    }
     html { scroll-behavior: smooth; }
 
     body {
@@ -509,14 +514,21 @@
     .data-credit-box a:hover { text-decoration: underline; }
 
     @media (max-width: 768px) {
-      .paper-sheet { padding: 30px 20px; }
-      .paper-title { font-size: 2.1rem; }
-      .charts-grid { grid-template-columns: 1fr; }
-      .author-card { flex-direction: column; text-align: center; }
-      .author-card-left { flex-direction: column; }
-      .paper-nav { flex-direction: column; gap: 12px; }
-      .nav-left-btns { flex-direction: column; width: 100%; }
-      .back-btn, .pdf-download-nav-btn { width: 100%; justify-content: center; }
+      .paper-wrapper { padding: 12px 10px 60px; }
+      .paper-sheet { padding: 24px 16px; border-radius: var(--radius-md); }
+      .paper-title { font-size: 1.65rem; line-height: 1.25; margin-bottom: 18px; }
+      .charts-grid { grid-template-columns: 1fr; gap: 16px; }
+      .author-card { flex-direction: column; text-align: center; padding: 18px 14px; gap: 14px; }
+      .author-card-left { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+      .author-details { text-align: center; }
+      .btn-download-pdf-hero { width: 100%; justify-content: center; font-size: 0.88rem; }
+      .paper-nav { flex-direction: column; gap: 10px; padding: 12px 14px; top: 8px; margin-bottom: 20px; }
+      .nav-left-btns { flex-direction: column; width: 100%; gap: 8px; }
+      .nav-right-meta { justify-content: space-between; width: 100%; }
+      .back-btn, .pdf-download-nav-btn { width: 100%; justify-content: center; font-size: 0.85rem; padding: 8px 14px; }
+      .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 18px 0; }
+      .abstract-box { padding: 18px 14px; }
+      .section-heading { font-size: 1.25rem; }
     }
   </style>
 </head>
