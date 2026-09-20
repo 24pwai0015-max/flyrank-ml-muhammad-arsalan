@@ -1,4 +1,17 @@
-<!DOCTYPE html>
+# coding: utf-8
+"""
+Build the redesigned portfolio UI with:
+- eLearning Theme (Teal #06BBCC + Midnight Navy #181D38, Nunito + Heebo)
+- Left-Sliding Offcanvas Drawer Menu
+- Dynamic Alternating Scroll Movement (.reveal-left, .reveal-right)
+- Authentic Muhammad Arsalan Photo (assets/arsalan.jpg)
+- Live FastMCP Agent Sandbox & Research Paper Link
+"""
+
+import os
+import shutil
+
+HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -2053,4 +2066,28 @@
     }
   </script>
 </body>
-</html>
+</html>"""
+
+def main():
+    print("Writing updated index.html...")
+    targets = [
+        'docs/index.html',
+        'portfolio/index.html',
+        'd:/4th semester Ai/internship/portfolio/index.html'
+    ]
+    for target in targets:
+        os.makedirs(os.path.dirname(target), exist_ok=True)
+        with open(target, 'w', encoding='utf-8') as f:
+            f.write(HTML_TEMPLATE)
+        print(f"-> Successfully updated {target}")
+
+    # Copy user photo to d:/4th semester Ai/internship/portfolio/assets/arsalan.jpg if not present
+    photo_src = 'docs/assets/arsalan.jpg'
+    photo_dest = 'd:/4th semester Ai/internship/portfolio/assets/arsalan.jpg'
+    if os.path.exists(photo_src):
+        os.makedirs(os.path.dirname(photo_dest), exist_ok=True)
+        shutil.copy2(photo_src, photo_dest)
+        print(f"-> Verified user photo at {photo_dest}")
+
+if __name__ == '__main__':
+    main()
