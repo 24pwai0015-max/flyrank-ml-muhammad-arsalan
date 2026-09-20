@@ -85,6 +85,12 @@
       box-shadow: var(--shadow-sm);
     }
 
+    .nav-left-btns {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .back-btn {
       text-decoration: none;
       font-family: var(--font-heading);
@@ -104,6 +110,29 @@
     .back-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(6, 187, 204, 0.4);
+    }
+
+    .pdf-download-nav-btn {
+      text-decoration: none;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--dark);
+      background: var(--primary-light);
+      border: 1px solid rgba(6, 187, 204, 0.35);
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .pdf-download-nav-btn:hover {
+      background: var(--primary);
+      color: #FFFFFF;
+      transform: translateY(-2px);
     }
 
     .nav-right-meta {
@@ -169,12 +198,20 @@
     .author-card {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
       gap: 18px;
       background: var(--primary-light);
       border: 1px solid rgba(6, 187, 204, 0.25);
       border-radius: var(--radius-md);
       padding: 16px 24px;
       margin-bottom: 35px;
+    }
+
+    .author-card-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
     }
 
     .author-avatar {
@@ -208,6 +245,28 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       margin-top: 3px;
+    }
+
+    .btn-download-pdf-hero {
+      background: var(--dark);
+      color: #FFFFFF;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-download-pdf-hero:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
     }
 
     /* Abstract Callout Box */
@@ -296,7 +355,7 @@
       line-height: 1.75;
     }
 
-    /* Modern Table Styling (eLearning Inspired) */
+    /* Modern Table Styling */
     .table-container {
       overflow-x: auto;
       margin: 28px 0;
@@ -347,7 +406,6 @@
       margin-left: 6px;
     }
 
-    /* Math Formulas */
     .formula-box {
       background: #F1F5F9;
       border: 1px solid #CBD5E1;
@@ -399,7 +457,6 @@
       font-weight: 600;
     }
 
-    /* Callout & Playbook Cards */
     .playbook-card {
       background: #F8FAFC;
       border: 1px solid #E2E8F0;
@@ -456,7 +513,10 @@
       .paper-title { font-size: 2.1rem; }
       .charts-grid { grid-template-columns: 1fr; }
       .author-card { flex-direction: column; text-align: center; }
+      .author-card-left { flex-direction: column; }
       .paper-nav { flex-direction: column; gap: 12px; }
+      .nav-left-btns { flex-direction: column; width: 100%; }
+      .back-btn, .pdf-download-nav-btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -466,10 +526,16 @@
 
     <!-- Paper Navigation -->
     <nav class="paper-nav">
-      <a href="index.html" class="back-btn">
-        <i class="fa-solid fa-arrow-left"></i>
-        <span>Back to Portfolio</span>
-      </a>
+      <div class="nav-left-btns">
+        <a href="index.html" class="back-btn">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Back to Portfolio</span>
+        </a>
+        <a href="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" download="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" target="_blank" class="pdf-download-nav-btn" title="Download Publication PDF Directly">
+          <i class="fa-solid fa-download"></i>
+          <span>Download PDF (2 Pages)</span>
+        </a>
+      </div>
       <div class="nav-right-meta">
         <span class="badge-capstone">Capstone Paper · ML-CAP-01</span>
         <a href="https://github.com/24pwai0015-max/flyrank-ml-muhammad-arsalan" target="_blank" rel="noopener" class="repo-link">
@@ -486,16 +552,22 @@
       <header class="paper-header">
         <h1 class="paper-title">Refresh &amp; Content Opportunity Scoring: A Leak-Free Offline Action Engine on Search Telemetry</h1>
 
-        <!-- Author Profile Card with Real Photo -->
+        <!-- Author Profile Card with Real Photo & Direct PDF Download -->
         <div class="author-card">
-          <img src="assets/arsalan.jpg" alt="Muhammad Arsalan" class="author-avatar" />
-          <div class="author-details">
-            <strong>Muhammad Arsalan</strong>
-            <span class="role-text">Applied AI &amp; Machine Learning Engineer</span>
-            <div class="academic-meta">
-              FlyRank AI Internship Capstone &nbsp;·&nbsp; UET Peshawar (4th Sem AI) &nbsp;·&nbsp; Metric: <strong style="color: var(--dark);">Precision@50 = 0.740</strong>
+          <div class="author-card-left">
+            <img src="assets/arsalan.jpg" alt="Muhammad Arsalan" class="author-avatar" />
+            <div class="author-details">
+              <strong>Muhammad Arsalan</strong>
+              <span class="role-text">Applied AI &amp; Machine Learning Engineer</span>
+              <div class="academic-meta">
+                FlyRank AI Internship Capstone &nbsp;·&nbsp; UET Peshawar (4th Sem AI) &nbsp;·&nbsp; Metric: <strong style="color: var(--dark);">Precision@50 = 0.740</strong>
+              </div>
             </div>
           </div>
+          <a href="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" download="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" target="_blank" class="btn-download-pdf-hero" title="Download Publication PDF Directly">
+            <i class="fa-solid fa-file-arrow-down"></i>
+            <span>Download Paper PDF</span>
+          </a>
         </div>
 
         <!-- 5-Sentence Abstract -->
@@ -765,10 +837,16 @@
           <p>
             Search telemetry datasets and research advisory provided by <a href="https://flyrank.ai" target="_blank" rel="noopener">FlyRank AI (https://flyrank.ai)</a> through the Applied Machine Learning Internship Program.
           </p>
-          <a href="index.html" class="back-btn" style="display: inline-flex; margin-top: 10px;">
-            <i class="fa-solid fa-house"></i>
-            <span>Return to Portfolio</span>
-          </a>
+          <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 15px;">
+            <a href="index.html" class="back-btn">
+              <i class="fa-solid fa-house"></i>
+              <span>Return to Portfolio</span>
+            </a>
+            <a href="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" download="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" target="_blank" class="btn-download-pdf-hero" style="background: var(--primary);">
+              <i class="fa-solid fa-download"></i>
+              <span>Download Paper PDF</span>
+            </a>
+          </div>
         </div>
       </section>
 

@@ -1,8 +1,14 @@
 # coding: utf-8
 """
-Rebuild both index.html and paper.html:
-1. index.html: Remove left hamburger drawer, keep the clean top center-to-right navigation bar.
-2. paper.html: Full redesign in the eLearning theme (#06BBCC Teal, #181D38 Navy, #F0FBFC light surfaces, Nunito/Heebo fonts, Arsalan photo author card).
+Rebuild both index.html and paper.html with:
+1. Guaranteed PDF downloads with download attribute in all locations.
+2. Full Contact Hub in #contact:
+   - Direct mailto with subject
+   - 1-click 'Copy Email' with instant toast feedback
+   - 1-click 'Open in Web Gmail' (bypasses broken local mail clients)
+   - Interactive Quick Message Form
+   - 'Schedule Call / Intro' interactive modal/dispatch
+3. Paper.html with top navigation download PDF button and matching eLearning theme.
 """
 
 import os
@@ -340,6 +346,7 @@ INDEX_HTML = """<!DOCTYPE html>
       gap: 10px;
       box-shadow: 0 10px 25px var(--primary-glow);
       transition: all 0.3s ease;
+      cursor: pointer;
     }
 
     .btn-hero-primary:hover {
@@ -361,6 +368,7 @@ INDEX_HTML = """<!DOCTYPE html>
       align-items: center;
       gap: 10px;
       transition: all 0.3s ease;
+      cursor: pointer;
     }
 
     .btn-hero-secondary:hover {
@@ -632,6 +640,7 @@ INDEX_HTML = """<!DOCTYPE html>
       align-items: center;
       gap: 10px;
       transition: all 0.25s ease;
+      cursor: pointer;
     }
 
     .btn-about-outline:hover {
@@ -978,6 +987,147 @@ INDEX_HTML = """<!DOCTYPE html>
     }
 
     /* ========================================================
+       ENHANCED CONTACT & BOOK CALL HUB
+       ======================================================== */
+    .contact-hub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 1100px;
+      margin: 40px auto 0;
+      text-align: left;
+    }
+
+    .contact-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .contact-card:hover {
+      background: rgba(6, 187, 204, 0.08);
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .contact-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      margin-bottom: 18px;
+    }
+
+    .contact-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+    }
+
+    .contact-card p {
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .contact-actions-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .btn-contact-action {
+      background: var(--primary);
+      color: #FFFFFF;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-contact-action:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+
+    .btn-contact-outline {
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-contact-outline:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Quick Message Form */
+    .quick-message-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .quick-message-form input,
+    .quick-message-form textarea {
+      width: 100%;
+      background: #0D1122;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .quick-message-form input:focus,
+    .quick-message-form textarea:focus {
+      border-color: var(--primary);
+    }
+
+    /* ========================================================
        FOOTER
        ======================================================== */
     .site-footer {
@@ -1085,6 +1235,7 @@ INDEX_HTML = """<!DOCTYPE html>
       }
       .about-grid { grid-template-columns: 1fr; }
       .footer-container { grid-template-columns: 1fr; }
+      .contact-hub-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -1147,6 +1298,10 @@ INDEX_HTML = """<!DOCTYPE html>
           <a href="paper.html" class="btn-hero-secondary">
             <span>Read Deployed Paper 📄</span>
             <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          <a href="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" download="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" target="_blank" class="btn-hero-secondary">
+            <i class="fa-solid fa-download"></i>
+            <span>Download Paper PDF</span>
           </a>
         </div>
 
@@ -1230,8 +1385,8 @@ INDEX_HTML = """<!DOCTYPE html>
               <span>Read Research Paper 📄</span>
               <i class="fa-solid fa-arrow-right"></i>
             </a>
-            <a href="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" target="_blank" class="btn-about-outline">
-              <i class="fa-solid fa-file-pdf"></i>
+            <a href="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" download="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" target="_blank" class="btn-about-outline" title="Download Publication PDF Directly">
+              <i class="fa-solid fa-file-arrow-down"></i>
               <span>Download Paper PDF</span>
             </a>
           </div>
@@ -1290,6 +1445,9 @@ INDEX_HTML = """<!DOCTYPE html>
           <div class="case-footer-actions">
             <a href="paper.html" class="case-action-link featured">
               <i class="fa-solid fa-file-lines"></i> Read Deployed Research Paper 📄
+            </a>
+            <a href="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" download="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" target="_blank" class="case-action-link">
+              <i class="fa-solid fa-file-arrow-down"></i> Download Paper PDF ↗
             </a>
             <a href="https://github.com/24pwai0015-max/flyrank-ml-muhammad-arsalan" target="_blank" rel="noopener" class="case-action-link">
               <i class="fa-brands fa-github"></i> View GitHub Repository ↗
@@ -1500,26 +1658,80 @@ INDEX_HTML = """<!DOCTYPE html>
       </div>
     </section>
 
-    <!-- Contact & Call to Action -->
+    <!-- Enhanced Contact & Book Call Hub -->
     <section id="contact" class="hero-section" style="border-top: 2px solid rgba(6, 187, 204, 0.2); border-bottom: none;">
       <div class="hero-container reveal-up">
         <div class="hero-badge">
           <i class="fa-solid fa-handshake"></i>
-          <span>Open to Opportunities</span>
+          <span>Direct Connection Hub</span>
         </div>
-        <h2 class="hero-title">Let's Build Reliable ML Together.</h2>
+        <h2 class="hero-title">Let's Connect &amp; Build Together.</h2>
         <p class="hero-claim">
-          Currently open to Applied AI &amp; ML internships, junior engineering roles, and research collaborations.
+          Open to Applied AI &amp; ML engineering roles, internships, research collaborations, and technical consulting.
         </p>
-        <div class="hero-cta-group">
-          <a href="mailto:24pwai0015@uetpeshawar.edu.pk" class="btn-hero-primary">
-            <i class="fa-solid fa-envelope"></i>
-            <span>Send Email (UET Peshawar)</span>
-          </a>
-          <a href="https://github.com/24pwai0015-max/flyrank-ml-muhammad-arsalan" target="_blank" rel="noopener" class="btn-hero-secondary">
-            <i class="fa-brands fa-github"></i>
-            <span>Inspect GitHub Repository</span>
-          </a>
+
+        <!-- 3 Modern Action Cards for Direct Communication -->
+        <div class="contact-hub-grid">
+          
+          <!-- Card 1: Direct Email Channels -->
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <i class="fa-solid fa-envelope-open-text"></i>
+            </div>
+            <h3>Email Me Directly</h3>
+            <p><strong>24pwai0015@uetpeshawar.edu.pk</strong><br/>Fastest response time (&lt;12h) for technical evaluations and recruitment.</p>
+            <div class="contact-actions-vertical">
+              <button onclick="copyEmail(this)" class="btn-contact-action">
+                <i class="fa-solid fa-copy"></i>
+                <span>Copy Email Address</span>
+              </button>
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=24pwai0015@uetpeshawar.edu.pk&su=Applied%20AI%20%26%20ML%20Intro%20Call%20-%20Muhammad%20Arsalan" target="_blank" rel="noopener" class="btn-contact-outline">
+                <i class="fa-brands fa-google"></i>
+                <span>Open in Web Gmail</span>
+              </a>
+              <a href="mailto:24pwai0015@uetpeshawar.edu.pk?subject=Intro%20Call%20-%20Applied%20AI%20%26%20ML%20-%20Muhammad%20Arsalan" class="btn-contact-outline">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <span>Launch Default Mail App</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: Book an Intro Call -->
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <h3>Book an Intro Call</h3>
+            <p>Schedule a 15-minute introductory technical discussion or interview directly across any timezone.</p>
+            <div class="contact-actions-vertical">
+              <a href="mailto:24pwai0015@uetpeshawar.edu.pk?subject=Request%20to%20Schedule%2015-Min%20Intro%20Call&body=Hi%20Arsalan,%0D%0A%0D%0AI%20would%20like%20to%20schedule%20a%2015-minute%20introductory%20call%20with%20you%20regarding%20an%20AI/ML%20role.%0D%0A%0D%0APreferred%20Time%20/%20Date:%0D%0ACompany%20/%20Project:%0D%0A" class="btn-contact-action">
+                <i class="fa-solid fa-video"></i>
+                <span>Request Video Call (Google Meet)</span>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener" class="btn-contact-outline">
+                <i class="fa-brands fa-linkedin"></i>
+                <span>Message on LinkedIn</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: Quick Message Dispatch -->
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <i class="fa-solid fa-paper-plane"></i>
+            </div>
+            <h3>Send a Quick Message</h3>
+            <form onsubmit="handleMessageSubmit(event)" class="quick-message-form">
+              <input type="text" id="msgName" placeholder="Your Name" required />
+              <input type="email" id="msgEmail" placeholder="Your Email Address" required />
+              <textarea id="msgBody" rows="3" placeholder="How can we collaborate? (Role, project, or question)" required></textarea>
+              <button type="submit" class="btn-contact-action">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>Send Message Now</span>
+              </button>
+            </form>
+          </div>
+
         </div>
       </div>
     </section>
@@ -1541,8 +1753,8 @@ INDEX_HTML = """<!DOCTYPE html>
           <h5>Core Artifacts</h5>
           <ul>
             <li><a href="paper.html">Deployed Research Paper 📄</a></li>
+            <li><a href="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" download="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" target="_blank">Download Publication PDF ↗</a></li>
             <li><a href="https://github.com/24pwai0015-max/flyrank-ml-muhammad-arsalan/blob/main/work/notebooks/capstone.ipynb" target="_blank" rel="noopener">Capstone Notebook (ML-CAP-01)</a></li>
-            <li><a href="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" target="_blank">Download Publication PDF</a></li>
             <li><a href="#agent-sandbox">Live FastMCP Agent Sandbox</a></li>
           </ul>
         </div>
@@ -1565,9 +1777,38 @@ INDEX_HTML = """<!DOCTYPE html>
 
   </div>
 
-  <!-- JavaScript for Scroll Reveal, 3D Canvas, and Live Agent -->
+  <!-- JavaScript for Scroll Reveal, 3D Canvas, Contact Utilities, and Live Agent -->
   <script>
-    // 1. Alternating Scroll Movement (IntersectionObserver)
+    // 1. Copy Email Helper with Dynamic Visual Toast Feedback
+    function copyEmail(btn) {
+      const email = '24pwai0015@uetpeshawar.edu.pk';
+      navigator.clipboard.writeText(email).then(() => {
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> <span>Copied to Clipboard!</span>';
+        btn.style.background = '#10B981';
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+          btn.style.background = '';
+        }, 3000);
+      }).catch(err => {
+        prompt('Copy this email address:', email);
+      });
+    }
+
+    // 2. Quick Message Form Handler
+    function handleMessageSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('msgName').value.trim();
+      const email = document.getElementById('msgEmail').value.trim();
+      const body = document.getElementById('msgBody').value.trim();
+      
+      const subject = encodeURIComponent('New Message from ' + name + ' (' + email + ')');
+      const mailtoUrl = 'mailto:24pwai0015@uetpeshawar.edu.pk?subject=' + subject + '&body=' + encodeURIComponent(body + '\\n\\nFrom: ' + name + ' (' + email + ')');
+      
+      window.location.href = mailtoUrl;
+    }
+
+    // 3. Alternating Scroll Movement (IntersectionObserver)
     const observerOptions = {
       root: null,
       rootMargin: '0px 0px -60px 0px',
@@ -1586,7 +1827,7 @@ INDEX_HTML = """<!DOCTYPE html>
       scrollObserver.observe(el);
     });
 
-    // 2. Interactive 3D Three.js Constellation
+    // 4. Interactive 3D Three.js Constellation
     try {
       const canvas = document.getElementById('webgl-canvas');
       const scene = new THREE.Scene();
@@ -1660,7 +1901,7 @@ INDEX_HTML = """<!DOCTYPE html>
       console.warn("Three.js canvas initialized gracefully:", err);
     }
 
-    // 3. Live FastMCP Agent Sandbox Simulator
+    // 5. Live FastMCP Agent Sandbox Simulator
     const terminal = document.getElementById('terminalWindow');
 
     function appendTerm(type, text) {
@@ -1801,6 +2042,12 @@ PAPER_HTML = """<!DOCTYPE html>
       box-shadow: var(--shadow-sm);
     }
 
+    .nav-left-btns {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .back-btn {
       text-decoration: none;
       font-family: var(--font-heading);
@@ -1820,6 +2067,29 @@ PAPER_HTML = """<!DOCTYPE html>
     .back-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(6, 187, 204, 0.4);
+    }
+
+    .pdf-download-nav-btn {
+      text-decoration: none;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--dark);
+      background: var(--primary-light);
+      border: 1px solid rgba(6, 187, 204, 0.35);
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .pdf-download-nav-btn:hover {
+      background: var(--primary);
+      color: #FFFFFF;
+      transform: translateY(-2px);
     }
 
     .nav-right-meta {
@@ -1885,12 +2155,20 @@ PAPER_HTML = """<!DOCTYPE html>
     .author-card {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
       gap: 18px;
       background: var(--primary-light);
       border: 1px solid rgba(6, 187, 204, 0.25);
       border-radius: var(--radius-md);
       padding: 16px 24px;
       margin-bottom: 35px;
+    }
+
+    .author-card-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
     }
 
     .author-avatar {
@@ -1924,6 +2202,28 @@ PAPER_HTML = """<!DOCTYPE html>
       font-size: 0.8rem;
       color: var(--text-muted);
       margin-top: 3px;
+    }
+
+    .btn-download-pdf-hero {
+      background: var(--dark);
+      color: #FFFFFF;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-download-pdf-hero:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
     }
 
     /* Abstract Callout Box */
@@ -2012,7 +2312,7 @@ PAPER_HTML = """<!DOCTYPE html>
       line-height: 1.75;
     }
 
-    /* Modern Table Styling (eLearning Inspired) */
+    /* Modern Table Styling */
     .table-container {
       overflow-x: auto;
       margin: 28px 0;
@@ -2063,7 +2363,6 @@ PAPER_HTML = """<!DOCTYPE html>
       margin-left: 6px;
     }
 
-    /* Math Formulas */
     .formula-box {
       background: #F1F5F9;
       border: 1px solid #CBD5E1;
@@ -2115,7 +2414,6 @@ PAPER_HTML = """<!DOCTYPE html>
       font-weight: 600;
     }
 
-    /* Callout & Playbook Cards */
     .playbook-card {
       background: #F8FAFC;
       border: 1px solid #E2E8F0;
@@ -2172,7 +2470,10 @@ PAPER_HTML = """<!DOCTYPE html>
       .paper-title { font-size: 2.1rem; }
       .charts-grid { grid-template-columns: 1fr; }
       .author-card { flex-direction: column; text-align: center; }
+      .author-card-left { flex-direction: column; }
       .paper-nav { flex-direction: column; gap: 12px; }
+      .nav-left-btns { flex-direction: column; width: 100%; }
+      .back-btn, .pdf-download-nav-btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -2182,10 +2483,16 @@ PAPER_HTML = """<!DOCTYPE html>
 
     <!-- Paper Navigation -->
     <nav class="paper-nav">
-      <a href="index.html" class="back-btn">
-        <i class="fa-solid fa-arrow-left"></i>
-        <span>Back to Portfolio</span>
-      </a>
+      <div class="nav-left-btns">
+        <a href="index.html" class="back-btn">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Back to Portfolio</span>
+        </a>
+        <a href="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" download="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" target="_blank" class="pdf-download-nav-btn" title="Download Publication PDF Directly">
+          <i class="fa-solid fa-download"></i>
+          <span>Download PDF (2 Pages)</span>
+        </a>
+      </div>
       <div class="nav-right-meta">
         <span class="badge-capstone">Capstone Paper · ML-CAP-01</span>
         <a href="https://github.com/24pwai0015-max/flyrank-ml-muhammad-arsalan" target="_blank" rel="noopener" class="repo-link">
@@ -2202,16 +2509,22 @@ PAPER_HTML = """<!DOCTYPE html>
       <header class="paper-header">
         <h1 class="paper-title">Refresh &amp; Content Opportunity Scoring: A Leak-Free Offline Action Engine on Search Telemetry</h1>
 
-        <!-- Author Profile Card with Real Photo -->
+        <!-- Author Profile Card with Real Photo & Direct PDF Download -->
         <div class="author-card">
-          <img src="assets/arsalan.jpg" alt="Muhammad Arsalan" class="author-avatar" />
-          <div class="author-details">
-            <strong>Muhammad Arsalan</strong>
-            <span class="role-text">Applied AI &amp; Machine Learning Engineer</span>
-            <div class="academic-meta">
-              FlyRank AI Internship Capstone &nbsp;·&nbsp; UET Peshawar (4th Sem AI) &nbsp;·&nbsp; Metric: <strong style="color: var(--dark);">Precision@50 = 0.740</strong>
+          <div class="author-card-left">
+            <img src="assets/arsalan.jpg" alt="Muhammad Arsalan" class="author-avatar" />
+            <div class="author-details">
+              <strong>Muhammad Arsalan</strong>
+              <span class="role-text">Applied AI &amp; Machine Learning Engineer</span>
+              <div class="academic-meta">
+                FlyRank AI Internship Capstone &nbsp;·&nbsp; UET Peshawar (4th Sem AI) &nbsp;·&nbsp; Metric: <strong style="color: var(--dark);">Precision@50 = 0.740</strong>
+              </div>
             </div>
           </div>
+          <a href="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" download="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" target="_blank" class="btn-download-pdf-hero" title="Download Publication PDF Directly">
+            <i class="fa-solid fa-file-arrow-down"></i>
+            <span>Download Paper PDF</span>
+          </a>
         </div>
 
         <!-- 5-Sentence Abstract -->
@@ -2481,10 +2794,16 @@ PAPER_HTML = """<!DOCTYPE html>
           <p>
             Search telemetry datasets and research advisory provided by <a href="https://flyrank.ai" target="_blank" rel="noopener">FlyRank AI (https://flyrank.ai)</a> through the Applied Machine Learning Internship Program.
           </p>
-          <a href="index.html" class="back-btn" style="display: inline-flex; margin-top: 10px;">
-            <i class="fa-solid fa-house"></i>
-            <span>Return to Portfolio</span>
-          </a>
+          <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 15px;">
+            <a href="index.html" class="back-btn">
+              <i class="fa-solid fa-house"></i>
+              <span>Return to Portfolio</span>
+            </a>
+            <a href="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" download="ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf" target="_blank" class="btn-download-pdf-hero" style="background: var(--primary);">
+              <i class="fa-solid fa-download"></i>
+              <span>Download Paper PDF</span>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -2496,7 +2815,7 @@ PAPER_HTML = """<!DOCTYPE html>
 </html>"""
 
 def main():
-    print("Rebuilding UI in all target directories...")
+    print("Rebuilding updated UI with full Contact Hub and guaranteed PDF downloads...")
     
     # 1. Update index.html
     index_targets = [
@@ -2522,7 +2841,19 @@ def main():
             f.write(PAPER_HTML)
         print(f"-> Updated {target}")
 
-    print("All targets successfully updated with new matching theme and clean top nav!")
+    # 3. Verify PDF deliverable in all targets
+    pdf_src = 'work/deliverables/ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf'
+    pdf_dests = [
+        'docs/ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf',
+        'portfolio/ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf',
+        'd:/4th semester Ai/internship/portfolio/ML_Capstone_Research_Paper_Muhammad_Arsalan.pdf'
+    ]
+    for dest in pdf_dests:
+        os.makedirs(os.path.dirname(dest), exist_ok=True)
+        shutil.copy2(pdf_src, dest)
+        print(f"-> Verified PDF deliverable at: {dest}")
+
+    print("All UI and PDF targets rebuilt successfully!")
 
 if __name__ == '__main__':
     main()
