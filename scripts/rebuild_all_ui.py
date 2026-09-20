@@ -1,4 +1,14 @@
-<!DOCTYPE html>
+# coding: utf-8
+"""
+Rebuild both index.html and paper.html:
+1. index.html: Remove left hamburger drawer, keep the clean top center-to-right navigation bar.
+2. paper.html: Full redesign in the eLearning theme (#06BBCC Teal, #181D38 Navy, #F0FBFC light surfaces, Nunito/Heebo fonts, Arsalan photo author card).
+"""
+
+import os
+import shutil
+
+INDEX_HTML = """<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1701,4 +1711,818 @@
     }
   </script>
 </body>
-</html>
+</html>"""
+
+
+PAPER_HTML = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search Refresh Opportunity Scoring · Research Paper | Muhammad Arsalan</title>
+  <meta name="description" content="Refresh & Content Opportunity Scoring: A Leak-Free Offline Action Engine on Search Telemetry. Capstone Research Paper by Muhammad Arsalan (FlyRank ML Internship)." />
+  
+  <!-- Google Web Fonts: Nunito, Heebo, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <style>
+    :root {
+      --primary: #06BBCC;
+      --primary-dark: #0596a5;
+      --primary-light: #E0F8FA;
+      --primary-glow: rgba(6, 187, 204, 0.35);
+
+      --dark: #181D38;
+      --dark-header: #101429;
+      --bg-light: #F0FBFC;
+      --bg-white: #FFFFFF;
+
+      --border-light: rgba(6, 187, 204, 0.22);
+      --border-subtle: #E2E8F0;
+
+      --text-main: #181D38;
+      --text-muted: #64748B;
+      --text-dim: #94A3B8;
+
+      --font-heading: 'Nunito', sans-serif;
+      --font-body: 'Heebo', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --shadow-sm: 0 4px 6px -1px rgba(24, 29, 56, 0.06);
+      --shadow-md: 0 10px 25px -5px rgba(24, 29, 56, 0.09);
+      --shadow-lg: 0 20px 35px -10px rgba(24, 29, 56, 0.14);
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.8;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    .paper-wrapper {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 30px 20px 100px;
+    }
+
+    /* Top Navigation Bar */
+    .paper-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 28px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      margin-bottom: 36px;
+      position: sticky;
+      top: 14px;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .back-btn {
+      text-decoration: none;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: #FFFFFF;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      padding: 8px 20px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(6, 187, 204, 0.4);
+    }
+
+    .nav-right-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .badge-capstone {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      background: var(--primary-light);
+      border: 1px solid rgba(6, 187, 204, 0.3);
+      padding: 5px 14px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .repo-link {
+      text-decoration: none;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s ease;
+    }
+
+    .repo-link:hover { color: var(--primary); }
+
+    /* Main Paper Card (White academic sheet) */
+    .paper-sheet {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 60px 50px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Header & Abstract */
+    .paper-header {
+      margin-bottom: 45px;
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 35px;
+    }
+
+    .paper-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 4vw, 3.1rem);
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      color: var(--dark);
+      margin-bottom: 24px;
+    }
+
+    /* Author Profile Card */
+    .author-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: var(--primary-light);
+      border: 1px solid rgba(6, 187, 204, 0.25);
+      border-radius: var(--radius-md);
+      padding: 16px 24px;
+      margin-bottom: 35px;
+    }
+
+    .author-avatar {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 16px var(--primary-glow);
+      flex-shrink: 0;
+    }
+
+    .author-details strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.2;
+    }
+
+    .author-details .role-text {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--primary-dark);
+      font-size: 0.95rem;
+    }
+
+    .author-details .academic-meta {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Abstract Callout Box */
+    .abstract-box {
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      border-left: 5px solid var(--primary);
+      border-radius: var(--radius-md);
+      padding: 28px 32px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .abstract-title {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--dark);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .abstract-title i { color: var(--primary); }
+
+    .abstract-text {
+      font-size: 1.05rem;
+      color: #334155;
+      line-height: 1.85;
+    }
+
+    /* Paper Sections */
+    .paper-section {
+      margin-top: 50px;
+      padding-top: 35px;
+      border-top: 1px solid #E2E8F0;
+    }
+
+    .paper-section h2 {
+      font-family: var(--font-heading);
+      font-size: 1.85rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--dark);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-num-tag {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(6, 187, 204, 0.3);
+    }
+
+    .paper-section h3 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin: 28px 0 12px;
+    }
+
+    .paper-section p {
+      color: #475569;
+      font-size: 1.02rem;
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+
+    .paper-section ul {
+      margin-left: 28px;
+      margin-bottom: 20px;
+      color: #475569;
+    }
+
+    .paper-section li {
+      margin-bottom: 10px;
+      line-height: 1.75;
+    }
+
+    /* Modern Table Styling (eLearning Inspired) */
+    .table-container {
+      overflow-x: auto;
+      margin: 28px 0;
+      border: 1px solid #CBD5E1;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+      text-align: left;
+    }
+
+    th {
+      background: var(--dark);
+      color: #FFFFFF;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      padding: 14px 18px;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    td {
+      padding: 14px 18px;
+      border-bottom: 1px solid #E2E8F0;
+      color: #334155;
+    }
+
+    tr:nth-child(even) { background: #F8FAFC; }
+    tr:hover { background: var(--primary-light); }
+
+    tr.highlight-row {
+      background: #ECFEFF;
+      font-weight: 700;
+      border-left: 4px solid var(--primary);
+    }
+
+    .lift-badge {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: #D1FAE5;
+      color: #065F46;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-left: 6px;
+    }
+
+    /* Math Formulas */
+    .formula-box {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      border-radius: var(--radius-sm);
+      padding: 16px 22px;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      color: var(--dark);
+      margin: 18px 0;
+      overflow-x: auto;
+    }
+
+    /* Charts Grid */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 24px;
+      margin: 30px 0;
+    }
+
+    .chart-card {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
+    }
+
+    .chart-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .chart-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+    }
+
+    .chart-caption {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+      font-weight: 600;
+    }
+
+    /* Callout & Playbook Cards */
+    .playbook-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: var(--radius-md);
+      padding: 22px;
+      margin-bottom: 16px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .playbook-card h4 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    /* Credit Footer */
+    .data-credit-box {
+      background: linear-gradient(135deg, var(--dark) 0%, #101429 100%);
+      color: #FFFFFF;
+      border-radius: var(--radius-md);
+      padding: 36px 30px;
+      text-align: center;
+      margin-top: 55px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .data-credit-box h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #FFFFFF;
+    }
+
+    .data-credit-box p {
+      color: var(--text-dim);
+      font-size: 1.0rem;
+      max-width: 650px;
+      margin: 0 auto 20px;
+    }
+
+    .data-credit-box a {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .data-credit-box a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .paper-sheet { padding: 30px 20px; }
+      .paper-title { font-size: 2.1rem; }
+      .charts-grid { grid-template-columns: 1fr; }
+      .author-card { flex-direction: column; text-align: center; }
+      .paper-nav { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="paper-wrapper">
+
+    <!-- Paper Navigation -->
+    <nav class="paper-nav">
+      <a href="index.html" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Back to Portfolio</span>
+      </a>
+      <div class="nav-right-meta">
+        <span class="badge-capstone">Capstone Paper · ML-CAP-01</span>
+        <a href="https://github.com/24pwai0015-max/flyrank-ml-muhammad-arsalan" target="_blank" rel="noopener" class="repo-link">
+          <i class="fa-brands fa-github"></i>
+          <span>GitHub Repo ↗</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Academic Sheet -->
+    <article class="paper-sheet">
+
+      <!-- Header Block -->
+      <header class="paper-header">
+        <h1 class="paper-title">Refresh &amp; Content Opportunity Scoring: A Leak-Free Offline Action Engine on Search Telemetry</h1>
+
+        <!-- Author Profile Card with Real Photo -->
+        <div class="author-card">
+          <img src="assets/arsalan.jpg" alt="Muhammad Arsalan" class="author-avatar" />
+          <div class="author-details">
+            <strong>Muhammad Arsalan</strong>
+            <span class="role-text">Applied AI &amp; Machine Learning Engineer</span>
+            <div class="academic-meta">
+              FlyRank AI Internship Capstone &nbsp;·&nbsp; UET Peshawar (4th Sem AI) &nbsp;·&nbsp; Metric: <strong style="color: var(--dark);">Precision@50 = 0.740</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-Sentence Abstract -->
+        <div class="abstract-box">
+          <div class="abstract-title">
+            <i class="fa-solid fa-bookmark"></i> Abstract
+          </div>
+          <p class="abstract-text">
+            In enterprise search marketing, organizations manage tens of thousands of published URLs with capacity to refresh only 20 to 50 articles per weekly editorial sprint, making unranked or recency-sorted audits unscalable. We investigate whether pre-decision search performance signals—specifically impression continuity, striking-distance position tiers, and content staleness—can reliably rank candidate URLs for organic traffic recovery on completely unseen client domains. Utilizing an anonymized dataset of 30,000 URLs across multiple commercial verticals, we enforce a strict pre-observation data contract and evaluate via <code>GroupShuffleSplit</code> on <code>client_id</code> to eliminate target leakage and domain memorization. Our tuned Random Forest achieves <strong>Precision@50 = 0.740</strong> (ROC-AUC = 0.750, PR-AUC = 0.618), delivering a <strong>3.08× lift over the transparent heuristic baseline (0.240)</strong> and converting triage queues into high-confidence editorial feeds. The resulting action engine outputs ranked recommendations accompanied by human-readable diagnostic reason codes, mapping URLs to refresh, CTR optimization, or monitoring playbooks without asserting causal ranking claims.
+          </p>
+        </div>
+      </header>
+
+      <!-- Section 1: Introduction & Problem Statement -->
+      <section class="paper-section">
+        <h2><span class="section-num-tag">01</span> Introduction &amp; Problem Statement</h2>
+        <p>
+          Search engine discovery represents one of the largest organic growth channels for digital enterprises. However, existing content libraries inevitably face ranking decay due to shifting user intent, algorithmic updates, and competitor content refreshes. Enterprise clients routinely manage catalogues exceeding 30,000 URLs, but editorial and engineering teams can realistically execute only 20 to 50 content updates per week.
+        </p>
+        <p>
+          Without automated scoring, organizations rely on naive heuristics such as sorting by raw historical traffic or selecting the oldest unrevised pages. This approach induces severe editorial fatigue: editors waste capacity inspecting stable evergreen articles that retain position without modification, while neglecting URLs in striking distance (positions 4–10) that require minimal revision to yield substantial search visibility gains.
+        </p>
+        <p>
+          This research formulates content refresh prioritization as a machine learning ranking task. Rather than attempting to model Google's proprietary search algorithms or asserting causal attribution, we focus on an operational decision-support goal: predicting which pages exhibit the statistical signature of recoverable content opportunities under strict client-holdout validation constraints.
+        </p>
+      </section>
+
+      <!-- Section 2: Data Summary -->
+      <section class="paper-section">
+        <h2><span class="section-num-tag">02</span> Data Summary &amp; Contract</h2>
+        <p>
+          The underlying dataset comprises <strong>30,000 URLs</strong> across <strong>120 distinct client domains</strong>, provided through the FlyRank AI research telemetry stream. To protect client confidentiality and comply with competitive data standards, all raw URLs, client identities, and domain names are salted, hashed, or aggregated into standardized statistical features.
+        </p>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature Name</th>
+                <th>Data Type</th>
+                <th>Observation Window</th>
+                <th>Operational Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>content_age_days</code></td>
+                <td>Integer</td>
+                <td>Pre-observation</td>
+                <td>Days elapsed since initial URL publication date</td>
+              </tr>
+              <tr>
+                <td><code>days_with_impressions</code></td>
+                <td>Integer</td>
+                <td>Past 90 Days</td>
+                <td>Count of days URL received at least 1 search impression</td>
+              </tr>
+              <tr>
+                <td><code>log_impressions_90d</code></td>
+                <td>Float</td>
+                <td>Past 90 Days</td>
+                <td>Natural log transformation of total 90-day search impressions</td>
+              </tr>
+              <tr>
+                <td><code>avg_position</code></td>
+                <td>Float</td>
+                <td>Past 90 Days</td>
+                <td>Mean search engine result page (SERP) ranking position</td>
+              </tr>
+              <tr>
+                <td><code>position_bucket</code></td>
+                <td>Categorical</td>
+                <td>Past 90 Days</td>
+                <td>Rank tier (Top 3, Striking Distance [4–10], Page 2 [11–20], Deep [21+])</td>
+              </tr>
+              <tr>
+                <td><code>device</code></td>
+                <td>Categorical</td>
+                <td>Pre-observation</td>
+                <td>Primary traffic device channel (Desktop, Mobile, Tablet)</td>
+              </tr>
+              <tr>
+                <td><code>client_id</code></td>
+                <td>Categorical</td>
+                <td>Metadata</td>
+                <td>Unique domain identifier used exclusively for grouping</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 3: Methodology & Validation Design -->
+      <section class="paper-section">
+        <h2><span class="section-num-tag">03</span> Methodology &amp; Leakage-Free Validation</h2>
+        <h3>The Critical Target Leakage Guard</h3>
+        <p>
+          A common pitfall in search telemetry modeling is the inadvertent inclusion of concurrent or post-decision features. In initial exploratory modeling, candidate features measuring percentage impression change (<code>trend_pct</code>) produced an apparent Precision@50 of 1.000. Investigation revealed that <code>trend_pct</code> had been computed across the subsequent 90-day measurement window used to define the ground-truth opportunity label.
+        </p>
+        <p>
+          We permanently eliminated <code>trend_pct</code> and <code>trend_direction</code> from the feature space. All predictor variables were strictly restricted to observation windows preceding the decision threshold.
+        </p>
+
+        <h3>Client-Holdout Partitioning</h3>
+        <p>
+          Standard k-fold cross-validation or random train-test splitting introduces cross-domain data leakage: URLs from the same website appear in both train and test partitions, artificially inflating metrics through domain memorization.
+        </p>
+        <p>
+          To ensure genuine operational generalizability, we implemented a <code>GroupShuffleSplit</code> partitioned strictly by <code>client_id</code> (80% training, 20% held-out test). All 6,000 URLs in the test set belong to client domains entirely unseen during training.
+        </p>
+
+        <div class="formula-box">
+          Split Protocol: GroupShuffleSplit(n_splits=1, test_size=0.20, random_state=42) on client_id<br/>
+          Training Domains: 96 clients (24,000 URLs) &nbsp;|&nbsp; Held-Out Test Domains: 24 clients (6,000 URLs)
+        </div>
+      </section>
+
+      <!-- Section 4: Results & Benchmarking -->
+      <section class="paper-section">
+        <h2><span class="section-num-tag">04</span> Results &amp; Model Benchmarking</h2>
+        <p>
+          Because editorial teams operate with fixed weekly inspection budgets, the primary evaluation metric is <strong>Precision@50</strong>: the proportion of the top 50 ranked pages on held-out client domains that represent true content refresh opportunities.
+        </p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Model Specification</th>
+                <th>Precision@50</th>
+                <th>ROC-AUC</th>
+                <th>Avg Precision (PR-AUC)</th>
+                <th>Recall</th>
+                <th>F1 Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight-row">
+                <td><strong>Random Forest (n=100, d=10)</strong></td>
+                <td><strong>0.740</strong> <span class="lift-badge">3.08× Lift</span></td>
+                <td>0.750</td>
+                <td>0.618</td>
+                <td>0.744</td>
+                <td>0.640</td>
+              </tr>
+              <tr>
+                <td>Decision Tree (max_depth=5)</td>
+                <td>0.540</td>
+                <td>0.742</td>
+                <td>0.575</td>
+                <td>0.716</td>
+                <td>0.634</td>
+              </tr>
+              <tr>
+                <td>Logistic Regression (L2, scaled)</td>
+                <td>0.400</td>
+                <td>0.700</td>
+                <td>0.522</td>
+                <td>0.567</td>
+                <td>0.505</td>
+              </tr>
+              <tr>
+                <td>Heuristic Baseline (Recency &amp; Volume)</td>
+                <td>0.240</td>
+                <td>0.627</td>
+                <td>0.435</td>
+                <td>0.470</td>
+                <td>0.446</td>
+              </tr>
+              <tr>
+                <td>Dataset Base Rate (Held-out Split)</td>
+                <td>0.534</td>
+                <td>0.500</td>
+                <td>0.534</td>
+                <td>—</td>
+                <td>—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart-card">
+            <img src="assets/charts/top_feature_importance.svg" alt="Feature Importance" />
+            <div class="chart-caption">Figure 1: Random Forest Feature Importance (MDI)</div>
+          </div>
+          <div class="chart-card">
+            <img src="assets/charts/top_reason_codes.svg" alt="Top Reason Codes" />
+            <div class="chart-caption">Figure 2: Distribution of Action Reason Codes</div>
+          </div>
+          <div class="chart-card">
+            <img src="assets/charts/action_mix.svg" alt="Editorial Action Mix" />
+            <div class="chart-caption">Figure 3: Recommended Action Distribution</div>
+          </div>
+          <div class="chart-card">
+            <img src="assets/charts/confidence_mix.svg" alt="Confidence Tiers" />
+            <div class="chart-caption">Figure 4: Model Prediction Confidence Tiers</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: Limitations & Boundary Conditions -->
+      <section class="paper-section">
+        <h2><span class="section-num-tag">05</span> Honest Limitations &amp; Boundaries</h2>
+        <ul>
+          <li><strong>Non-Causal Scoring:</strong> The model identifies statistical opportunities based on historical telemetry; it does not guarantee that updating an article will causally regain organic ranking.</li>
+          <li><strong>Distribution Shift Across Verticals:</strong> Telemetry signatures vary between e-commerce product listings and B2B long-form editorial content.</li>
+          <li><strong>Lagged Observation Windows:</strong> Telemetry requires 90 days of accumulated impression history. Zero-impression new launches cannot be scored reliably.</li>
+          <li><strong>Algorithm Volatility:</strong> Core ranking updates by search engines can alter position dynamics independently of content quality.</li>
+        </ul>
+      </section>
+
+      <!-- Section 6: Ranked Action Playbooks -->
+      <section class="paper-section">
+        <h2><span class="section-num-tag">06</span> Ranked Editorial Action Playbooks</h2>
+        <p>
+          Model probability outputs are mapped into five operational playbooks with automated reason codes:
+        </p>
+
+        <div class="playbook-card">
+          <h4>1. High-Impact Quick Win (p ≥ 0.70, Striking Distance [4–10])</h4>
+          <p>URLs with high impression volume lingering just outside the top 3. Recommended action: refresh H2 subheadings, expand FAQ answers, and add internal anchor links.</p>
+        </div>
+
+        <div class="playbook-card">
+          <h4>2. Defend &amp; Expand (p ≥ 0.70, Top 3 [1–3])</h4>
+          <p>High-visibility core assets vulnerable to competitor conquesting. Recommended action: verify factual accuracy, refresh published timestamps, and audit structured schema.</p>
+        </div>
+
+        <div class="playbook-card">
+          <h4>3. Overhaul &amp; Prune (p ≥ 0.60, Content Age &gt; 365 days, Deep Rank)</h4>
+          <p>Stale legacy URLs experiencing prolonged impression decay. Recommended action: deep structural rewrite or 301 consolidation into authoritative parent hubs.</p>
+        </div>
+
+        <div class="playbook-card">
+          <h4>4. Evergreen Monitor (p &lt; 0.40, Top 5)</h4>
+          <p>Stable performers retaining high rankings without intervention. Recommended action: zero editorial touches; prevent unnecessary review churn.</p>
+        </div>
+
+        <div class="playbook-card">
+          <h4>5. Deprecate / Archive (p &lt; 0.30, Impressions &lt; 100)</h4>
+          <p>Zero-value zombie URLs consuming crawl budget. Recommended action: canonicalize, apply noindex tags, or remove from XML sitemap.</p>
+        </div>
+      </section>
+
+      <!-- Section 7: Reproducibility Protocol -->
+      <section class="paper-section">
+        <h2><span class="section-num-tag">07</span> Reproducibility &amp; Audit Trail</h2>
+        <p>
+          All experiments, seed parameters (<code>seed=42</code>), and data contracts are version-controlled and reproducible via the companion notebook:
+        </p>
+        <div class="formula-box">
+          git clone https://github.com/24pwai0015-max/flyrank-ml-muhammad-arsalan.git<br/>
+          cd flyrank-ml-muhammad-arsalan<br/>
+          pip install -r requirements.txt<br/>
+          python scripts/run_all.py
+        </div>
+        <p>
+          Interactive replication is available in Google Colab: <a href="https://github.com/24pwai0015-max/flyrank-ml-muhammad-arsalan/blob/main/work/notebooks/capstone.ipynb" target="_blank" rel="noopener" style="color: var(--primary); font-weight: 700;">Inspect capstone.ipynb on GitHub ↗</a>.
+        </p>
+      </section>
+
+      <!-- Section 8: Acknowledgments & Data Credit -->
+      <section class="paper-section">
+        <h2><span class="section-num-tag">08</span> Acknowledgments &amp; Data Credit</h2>
+        <div class="data-credit-box">
+          <h3>FlyRank AI Data Partnership</h3>
+          <p>
+            Search telemetry datasets and research advisory provided by <a href="https://flyrank.ai" target="_blank" rel="noopener">FlyRank AI (https://flyrank.ai)</a> through the Applied Machine Learning Internship Program.
+          </p>
+          <a href="index.html" class="back-btn" style="display: inline-flex; margin-top: 10px;">
+            <i class="fa-solid fa-house"></i>
+            <span>Return to Portfolio</span>
+          </a>
+        </div>
+      </section>
+
+    </article>
+
+  </div>
+
+</body>
+</html>"""
+
+def main():
+    print("Rebuilding UI in all target directories...")
+    
+    # 1. Update index.html
+    index_targets = [
+        'docs/index.html',
+        'portfolio/index.html',
+        'd:/4th semester Ai/internship/portfolio/index.html'
+    ]
+    for target in index_targets:
+        os.makedirs(os.path.dirname(target), exist_ok=True)
+        with open(target, 'w', encoding='utf-8') as f:
+            f.write(INDEX_HTML)
+        print(f"-> Updated {target}")
+
+    # 2. Update paper.html
+    paper_targets = [
+        'docs/paper.html',
+        'portfolio/paper.html',
+        'd:/4th semester Ai/internship/portfolio/paper.html'
+    ]
+    for target in paper_targets:
+        os.makedirs(os.path.dirname(target), exist_ok=True)
+        with open(target, 'w', encoding='utf-8') as f:
+            f.write(PAPER_HTML)
+        print(f"-> Updated {target}")
+
+    print("All targets successfully updated with new matching theme and clean top nav!")
+
+if __name__ == '__main__':
+    main()
